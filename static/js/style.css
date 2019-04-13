@@ -55,6 +55,18 @@
     left: -110px;
 }
 
+.center {
+    text-align: center;
+}
+
+.hide {
+    display: none;
+}
+
+.delivery-done {
+    margin: auto;
+}
+
 .step_time {
     position: absolute;
     left: -108px;

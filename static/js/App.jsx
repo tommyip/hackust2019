@@ -4,8 +4,11 @@ import './fonts.css';
 import './style.css';
 import { compose, withProps, lifecycle } from "recompose";
 import { withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer } from "react-google-maps";
-import googleMapsAPI from "./../ApiKeys"
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import googleMapsAPI from "./../ApiKeys";
+import { Router, Route, Link } from "react-router-dom";
+import { createBrowserHistory } from 'history';
+
+const history = createBrowserHistory();
 
 
 const MapWithADirectionsRenderer = compose(
@@ -86,7 +89,7 @@ class Orders extends React.Component {
         }
     }
 
-    componentDidMount() {
+    updateData() {
         fetch('/api/orders').then(results => {
             return results.json();
         }).then(data => {
@@ -95,9 +98,22 @@ class Orders extends React.Component {
         });
     }
 
+    componentDidMount() {
+        this.updateData();
+        this.unlisten = history.listen((location, action) => {
+            this.updateData();
+        });
+    }
+
+    componentWillUnmount() {
+        this.unlisten();
+    }
+
     render () {
-        const orders = [];
+        let nOrders = 0;
+        let orders = [];
         for (const order of this.state.orders) {
+            if (order.order_status === 3) continue;
             orders.push(
                 <div key={order.id}>
                     <div className="col-lg-12 order-box">
@@ -123,6 +139,11 @@ class Orders extends React.Component {
                     </div>
                 </div>
             );
+            nOrders++;
+        }
+
+        if (nOrders === 0) {
+            orders = (<div className="center">No orders to deliver</div>);
         }
 
         return (
@@ -194,6 +215,9 @@ class TrackOrder extends React.Component {
     }
 
     render() {
+        const button = this.state.stage === 3 ?
+            (<Link className="delivery-done btn btn-success" to="/">Done</Link>) : '';
+
         return (
             <div>
                 <Header title={"Tracking order " + this.state.order.id} />
@@ -228,8 +252,9 @@ class TrackOrder extends React.Component {
                             <div>{this.state.order.destination}</div>
                         </li>
                     </ul>
-                </div>
 
+                    {button}
+                </div>
             </div>
         );
     }
@@ -246,7 +271,7 @@ export default class App extends React.Component {
     render () {
         return (
             <div>
-                <Router>
+                <Router history={history}>
                     <Route exact path="/" component={Orders} />
                     <Route path="/track" component={TrackOrder} />
                     <Route path="/topics" component={Topics} />
