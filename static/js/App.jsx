@@ -1,5 +1,6 @@
 // App.jsx
 import React from "react";
+import './fonts.css';
 import './style.css';
 import { compose, withProps, lifecycle } from "recompose";
 import { withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer } from "react-google-maps";
@@ -58,36 +59,63 @@ function timeConverter(UNIX_timestamp) {
     return time;
 }
 
+function Header(props) {
+    return (
+        <div>
+            <div className="header">
+                <h2>{props.title}</h2>
+            </div>
+            <div className="header-pushdown"></div>
+        </div>
+    );
+}
 
-function Orders() {
-    const orders = [];
-    for (const order of self.state.orders) {
-        orders.push(
-            <div key={order.id}>
-                <div className="col-lg-12 order-box">
-                    <div className="order-time">{timeConverter(order.order_time)}</div>
-                    <div className="deliver-card bg-light">
-                        <h3 className="w-50 float-left">Order {order.id}</h3>
-                        <button className="float-right btn-white deliver-btn"><Link to="/deliver">Deliver</Link></button>
+export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            orders: [],
+        }
+    }
 
-                        <div className="clearfix"></div>
+    componentDidMount() {
+        fetch('/api/orders').then(results => {
+            return results.json();
+        }).then(data => {
+            this.setState({orders: data});
+            console.log(data);
+        });
+    }
 
-                        <p>Pick up from {order.store}</p>
-                        <p>Address: {order.store_address}</p>
-                        <p>Destination: {order.destination}</p>
-                        <MapWithADirectionsRenderer store_latlng={order.store_latlng} destination_latlng={order.destination_latlng} />
+    render () {
+        const orders = [];
+        for (const order of self.state.orders) {
+            orders.push(
+                <div key={order.id}>
+                    <div className="col-lg-12 order-box">
+                        <div className="order-time">{timeConverter(order.order_time)}</div>
+                        <div className="deliver-card bg-light">
+                            <h3 className="w-50 float-left">Order {order.id}</h3>
+                            <button className="float-right btn-white deliver-btn"><Link to="/deliver">Deliver</Link></button>
+
+                            <div className="clearfix"></div>
+                            <br />
+                            <p><i class="fas fa-store"></i>&nbsp;&nbsp; <b>{order.store}</b> {order.store_address}</p>
+                            <p>&nbsp;<i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;&nbsp; {order.destination}</p>
+                            <MapWithADirectionsRenderer store_latlng={order.store_latlng} destination_latlng={order.destination_latlng} />
+                        </div>
                     </div>
                 </div>
-                <br/>
+            );
+        }
+
+        return (
+            <div>
+                <Header title="Orders available" />
+                {orders}
             </div>
         );
     }
-
-    return (
-        <div>
-            {orders}
-        </div>
-    );
 }
 
 function Deliver() {
@@ -106,46 +134,28 @@ function Topics() {
   );
 }
 export default class App extends React.Component {
-  constructor(props) {
-      super(props);
-      this.state = {
-          orders: [],
-      }
-      self = this;
-  }
-
-  componentDidMount() {
-      fetch('/api/orders').then(results => {
-          return results.json();
-      }).then(data => {
-          this.setState({orders: data});
-          console.log(data);
-      });
-  }
-
     render () {
         return (
-          <Router>
-            <div>
-              <ul>
-                <li>
-                  <Link to="/">Orders</Link>
-                </li>
-                <li>
-                  <Link to="/deliver">Deliver</Link>
-                </li>
-                <li>
-                  <Link to="/topics">Topics</Link>
-                </li>
-              </ul>
+            <Router>
+                <div>
+                    <ul>
+                        <li>
+                            <Link to="/">Orders</Link>
+                        </li>
+                        <li>
+                            <Link to="/deliver">Deliver</Link>
+                        </li>
+                        <li>
+                            <Link to="/topics">Topics</Link>
+                        </li>
+                    </ul>
 
-              <Route exact path="/" component={Orders} />
-              <Route path="/deliver" component={Deliver} />
-              <Route path="/topics" component={Topics} />
-              <hr />
-
-            </div>
-          </Router>
+                    <Route exact path="/" component={Orders} />
+                    <Route path="/deliver" component={Deliver} />
+                    <Route path="/topics" component={Topics} />
+                    <hr />
+                </div>
+            </Router>
         )
-      }
     }
+}

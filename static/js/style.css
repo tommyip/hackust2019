@@ -1,3 +1,7 @@
+.body {
+    font-size: 25px;
+}
+
 .btn-white {
     background-color: white;
     border: 0;
@@ -8,6 +12,30 @@
     color: white;
 }
 
+.deliver-card {
+    border-radius: 20px;
+    padding: 2em;
+}
+
+.header-pushdown {
+    margin-bottom: 5em;
+}
+
+.header {
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    display: block;
+    background-color: white;
+
+    padding-top: 1em;
+    padding-bottom: 0.7em;
+    text-align: center;
+}
+
 .order-time {
     padding-top: 1em;
     padding-bottom: 0.5em;
@@ -16,10 +44,6 @@
 
 .deliver-btn {
     padding: 5px 15px;
-}
-
-.deliver-card {
-    padding: 20px;
 }
 
 .bold {
@@ -44,7 +68,7 @@
     font-size: 14px;
     /*border: 1px solid #CCC;*/
 }
-
+/*
 @media (min-width:300px) {
   .deliver-card h3{
     font-size: 50px;
@@ -77,6 +101,11 @@
   }
 }
 
+    .deliver-btn {
+        padding: 20px 30px;
+    }
+}
+*/
 
 
 .StepProgress {
@@ -150,12 +179,10 @@
     display: block;
 }
 
-.adp-directions, .adp-placemark, #panel{
-  display:none;
-}
-
-.order-box{
-  padding:20px;
+.adp-directions,
+.adp-placemark,
+#panel {
+    display: none;
 }
 
 .margin-auto{
