@@ -41,7 +41,7 @@ class RiderStatus(IntEnum):
 class Riders:
     def __init__(self):
         self.lst = []
-        self.id = 0
+        self.id = 1000
 
     def bump_id(self):
         tmp = self.id
@@ -63,20 +63,22 @@ class Riders:
 class Orders:
     def __init__(self):
         self.lst = []
-        self.id = 0
+        self.id = 14538
 
     def bump_id(self):
         tmp = self.id
         self.id += 1
         return tmp
 
-    def add_new_order(self, store, store_address, destination, region, customer_name):
+    def add_new_order(self, store, store_address, store_latlng, destination, destination_latlng, region, customer_name):
         new_id = self.bump_id()
         self.lst.append({
             'id': new_id,
             'store': store,
             'store_address': store_address,
+            'store_latlng': store_latlng,
             'destination': destination,
+            'destination_latlng': destination_latlng,
             'region': region,
             'customer_name': customer_name,
             'order_time': int(time.time()),
@@ -103,21 +105,27 @@ orders_db = Orders()
 orders_db.add_new_order(
     'KFC Hau Tak',
     'Shop E165A, 1/F, East Wing, TKO Gateway, Hau Tak Estate, Tseung Kwan O',
+    [22.3172586, 114.2639298],
     'China Gardens, G/F, Academic Building, Hong Kong University of Science and Technology, Clear Water Bay',
+    [22.3349335, 114.2629791],
     Region.sai_kung,
     'Test user A'
 )
 orders_db.add_new_order(
     'KFC Metro City',
     'Shop 2057-59, Level 2, Metro City Phase II, Tseung Kwan O',
+    [22.3225982, 114.256286],
     'Lohas Park, Wan Po Rd, Siu Chik Sha',
+    [22.2948541, 114.2708041],
     Region.sai_kung,
     'Test user B'
 )
 orders_db.add_new_order(
     'KFC',
     'Shop A, G/F & 1/F, 2-4 Cameron Road, Tsim Sha Tsui',
+    [22.2986703, 114.1704412],
     '60 Chung Hau St, Ho Man Tin',
+    [22.3120893, 114.1777189],
     Region.wan_chai,
     'Test user C'
 )

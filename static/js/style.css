@@ -8,6 +8,12 @@
     color: white;
 }
 
+.order-time {
+    padding-top: 1em;
+    padding-bottom: 0.5em;
+    color: rgb(83, 83, 83);
+}
+
 .deliver-btn {
     padding: 5px 15px;
 }
@@ -122,4 +128,12 @@
 
 .StepProgress strong {
     display: block;
+}
+
+.adp-directions, .adp-placemark, #panel{
+  display:none;
+}
+
+.order-box{
+  padding:20px;
 }

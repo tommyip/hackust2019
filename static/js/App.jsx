@@ -1,7 +1,6 @@
 // App.jsx
 import React from "react";
 import './style.css';
-import Test from "./test";
 import { compose, withProps, lifecycle } from "recompose";
 import { withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer } from "react-google-maps";
 import googleMapsAPI from "./../ApiKeys"
@@ -22,8 +21,8 @@ const MapWithADirectionsRenderer = compose(
       const DirectionsService = new google.maps.DirectionsService();
 
       DirectionsService.route({
-        origin: new google.maps.LatLng(22.3364, 114.2655),
-        destination: new google.maps.LatLng(22.2980, 114.1720),
+        origin: new google.maps.LatLng(...this.props.store_latlng),
+        destination: new google.maps.LatLng(...this.props.destination_latlng),
         travelMode: google.maps.TravelMode.DRIVING,
       }, (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
@@ -39,40 +38,62 @@ const MapWithADirectionsRenderer = compose(
   })
 )(props =>
   <GoogleMap
-    defaultZoom={7}
-    defaultCenter={new google.maps.LatLng(41.8507300, -87.6512600)}
+    defaultZoom={8}
+    defaultCenter={new google.maps.LatLng(...props.store_latlng)}
   >
     {props.directions && <DirectionsRenderer directions={props.directions} options={{draggable:true}} panel={ document.getElementById('panel') } />}
     <div id="panel"></div>
   </GoogleMap>
 );
 
-
-function Orders() {
-  return (
-    <div>
-      <div className="col-lg-12">
-          <div className="deliver-card bg-light">
-              <h3 className="w-50 float-left">Order 12345-N</h3>
-              <button className="float-right btn-white deliver-btn">Deliver</button>
-              <div className="clearfix"></div>
-
-              <p>Tseung Kwan O to 12/F Happy Valley</p>
-              <MapWithADirectionsRenderer />
-          </div>
-      </div>
-      <br/>
-      <div className="col-lg-8">
-          <p>16:04 April 13, 2019</p>
-      </div>
-    </div>
-  );
+function timeConverter(UNIX_timestamp) {
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = ['January', 'Febrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var time = hour + ':' + min + ' ' + date + ' ' + month + ' ' + year;
+    return time;
 }
 
-function About() {
+
+function Orders() {
+    const orders = [];
+    for (const order of self.state.orders) {
+        orders.push(
+            <div key={order.id}>
+                <div className="col-lg-12 order-box">
+                    <div className="order-time">{timeConverter(order.order_time)}</div>
+                    <div className="deliver-card bg-light">
+                        <h3 className="w-50 float-left">Order {order.id}</h3>
+                        <button className="float-right btn-white deliver-btn"><Link to="/deliver">Deliver</Link></button>
+
+                        <div className="clearfix"></div>
+
+                        <p>Pick up from {order.store}</p>
+                        <p>Address: {order.store_address}</p>
+                        <p>Destination: {order.destination}</p>
+                        <MapWithADirectionsRenderer store_latlng={order.store_latlng} destination_latlng={order.destination_latlng} />
+                    </div>
+                </div>
+                <br/>
+            </div>
+        );
+    }
+
+    return (
+        <div>
+            {orders}
+        </div>
+    );
+}
+
+function Deliver() {
   return (
     <div>
-    <h2>About</h2>
+      <h2>Deliver</h2>
     </div>
   );
 }
@@ -85,6 +106,22 @@ function Topics() {
   );
 }
 export default class App extends React.Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+          orders: [],
+      }
+      self = this;
+  }
+
+  componentDidMount() {
+      fetch('/api/orders').then(results => {
+          return results.json();
+      }).then(data => {
+          this.setState({orders: data});
+          console.log(data);
+      });
+  }
 
     render () {
         return (
@@ -95,7 +132,7 @@ export default class App extends React.Component {
                   <Link to="/">Orders</Link>
                 </li>
                 <li>
-                  <Link to="/about">About</Link>
+                  <Link to="/deliver">Deliver</Link>
                 </li>
                 <li>
                   <Link to="/topics">Topics</Link>
@@ -103,12 +140,12 @@ export default class App extends React.Component {
               </ul>
 
               <Route exact path="/" component={Orders} />
-              <Route path="/about" component={About} />
+              <Route path="/deliver" component={Deliver} />
               <Route path="/topics" component={Topics} />
               <hr />
 
             </div>
           </Router>
-        );
+        )
+      }
     }
-}
