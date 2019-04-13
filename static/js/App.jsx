@@ -144,6 +144,27 @@ class Orders extends React.Component {
             nOrders++;
         }
 
+        orders.push(
+            <div key="14558">
+                <div className="col-lg-12">
+                    <div className="order-time">12:35 14 April 2019, 12:46 14 April 2019</div>
+                    <div className="deliver-card bg-light">
+                        <h3 className="w-50 float-left">Order 14541, 14558</h3>
+                        <button
+                            className="float-right btn btn-primary"
+                            ><b>Deliver</b></button>
+
+                        <div className="clearfix"></div>
+                        <br />
+                        <p><i className="fas fa-store"></i>&nbsp;&nbsp; <b>Pizza Hut</b> Tseung Kwan O, 2071-72, Metro City Plaza Phase II, 8 Yan King Rd</p>
+                        <p>&nbsp;<i className="fas fa-map-marker-alt"></i>&nbsp;&nbsp;&nbsp; Flat C, Floor 19, The Wings II Tower 1, Tong Chun St, Tseung Kwan O <i>(order 14541)</i></p>
+                        <p>&nbsp;<i className="fas fa-map-marker-alt"></i>&nbsp;&nbsp;&nbsp; Flat A, Floor 4, The Wings II Tower 1, Tong Chun St, Tseung Kwan O <i>(order 14558)</i></p>
+                        <MapWithADirectionsRenderer store_latlng={[22.3243677, 114.2549438]} destination_latlng={[22.3058798, 114.2594711]} />
+                    </div>
+                </div>
+            </div>
+        );
+
         if (nOrders === 0) {
             orders = (<div className="center">No orders to deliver</div>);
         }
