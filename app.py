@@ -85,10 +85,12 @@ class Orders:
         })
         return new_id
 
-    def update_order_status(self, _id, new_status):
+    def update_order_status(self, _id, request_body):
         for order in self.lst:
             if order['id'] == _id:
-                order['order_status'] = OrderStatus(new_status)
+                order['order_status'] = OrderStatus(request_body['status'])
+                if request_body['status'] == 2:
+                    order['rider_id'] = request_body['rider_id']
 
     def json(self):
         return jsonify(self.lst)
@@ -142,8 +144,8 @@ def orders_narrow_id(order_id):
             if order['id'] == order_id:
                 return jsonify(order)
     elif request.method == 'PUT':
-        new_status = request.get_json()['status']
-        orders_db.update_order_status(order_id, new_status)
+        body = request.get_json()
+        orders_db.update_order_status(order_id, body)
         return jsonify(True)
 
 
