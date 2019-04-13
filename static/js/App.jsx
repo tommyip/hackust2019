@@ -45,25 +45,62 @@ const MapWithADirectionsRenderer = compose(
   </GoogleMap>
 );
 
-export default class App extends React.Component {
-    render () {
-        return (
-        <div>
-            <div className="col-lg-12">
-                <div className="deliver-card bg-light">
-                    <h3 className="w-50 float-left">Order 12345-N</h3>
-                    <button className="float-right btn-white deliver-btn">Deliver</button>
-                    <div className="clearfix"></div>
+function timeConverter(UNIX_timestamp) {
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = ['January', 'Febrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var time = hour + ':' + min + ' ' + date + ' ' + month + ' ' + year;
+    return time;
+}
 
-                    <p>Tseung Kwan O to 12/F Happy Valley</p>
-                    <MapWithADirectionsRenderer />
+export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            orders: [],
+        }
+    }
+
+    componentDidMount() {
+        fetch('/api/orders').then(results => {
+            return results.json();
+        }).then(data => {
+            this.setState({orders: data});
+            console.log(data);
+        });
+    }
+
+    render () {
+        const orders = [];
+        for (const order of this.state.orders) {
+            orders.push(
+                <div key={order.id}>
+                    <div className="col-lg-12">
+                        <div className="order-time">{timeConverter(order.order_time)}</div>
+                        <div className="deliver-card bg-light">
+                            <h3 className="w-50 float-left">Order {order.id}</h3>
+                            <button className="float-right btn-white deliver-btn">Deliver</button>
+                            <div className="clearfix"></div>
+
+                            <p>Pick up from {order.store}</p>
+                            <p>Address: {order.store_address}</p>
+                            <p>Destination: {order.destination}</p>
+                            <MapWithADirectionsRenderer />
+                        </div>
+                    </div>
+                    <br/>
                 </div>
+            );
+        }
+
+        return (
+            <div>
+                {orders}
             </div>
-            <br/>
-            <div className="col-lg-8">
-                <p>16:04 April 13, 2019</p>
-            </div>
-        </div>
         );
     }
 }

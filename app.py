@@ -41,7 +41,7 @@ class RiderStatus(IntEnum):
 class Riders:
     def __init__(self):
         self.lst = []
-        self.id = 0
+        self.id = 1000
 
     def bump_id(self):
         tmp = self.id
@@ -63,7 +63,7 @@ class Riders:
 class Orders:
     def __init__(self):
         self.lst = []
-        self.id = 0
+        self.id = 14538
 
     def bump_id(self):
         tmp = self.id
