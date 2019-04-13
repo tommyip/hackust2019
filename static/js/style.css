@@ -39,6 +39,20 @@
     /*border: 1px solid #CCC;*/
 }
 
+@media (min-width:300px) {
+  .deliver-card h3{
+    font-size: 50px;
+  }
+  p,button{
+    font-size:30px;
+  }
+  .deliver-btn{
+    padding:20px 30px;
+  }
+}
+
+
+
 .StepProgress {
     position: relative;
     padding-left: 42px;
