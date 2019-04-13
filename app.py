@@ -26,7 +26,7 @@ class Region(IntEnum):
 
 
 class OrderStatus(IntEnum):
-    preparing_food = 0
+    order_confirmed = 0
     waiting_for_driver = 1
     delivering = 2
     delivered = 3
@@ -82,12 +82,13 @@ class Orders:
             'region': region,
             'customer_name': customer_name,
             'order_time': int(time.time()),
-            'order_status': OrderStatus.preparing_food,
+            'order_status': OrderStatus.order_confirmed,
             'rider_id': None
         })
         return new_id
 
     def update_order_status(self, _id, request_body):
+        print(request_body)
         for order in self.lst:
             if order['id'] == _id:
                 order['order_status'] = OrderStatus(request_body['status'])

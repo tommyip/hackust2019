@@ -18,7 +18,7 @@
 }
 
 .header-pushdown {
-    margin-bottom: 4em;
+    margin-bottom: 5em;
 }
 
 .header {
@@ -58,7 +58,10 @@
 .step_time {
     position: absolute;
     left: -108px;
-    top: 15px;
+}
+
+.checkboxWrap {
+    display: inline-block;
 }
 
 .timeline-wrapper {
@@ -93,7 +96,7 @@
   .prof_card button{
     float:right;
     border:0;
-    
+
   }
   h3{
      font-size:40px;

@@ -59,6 +59,14 @@ function timeConverter(UNIX_timestamp) {
     return time;
 }
 
+function hourMinConverter(UNIX_timestamp) {
+    var a = new Date(UNIX_timestamp * 1000);
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var time = hour + ':' + min;
+    return time;
+}
+
 function Header(props) {
     return (
         <div>
@@ -96,7 +104,15 @@ class Orders extends React.Component {
                         <div className="order-time">{timeConverter(order.order_time)}</div>
                         <div className="deliver-card bg-light">
                             <h3 className="w-50 float-left">Order {order.id}</h3>
-                            <Link className="float-right btn btn-primary" to="/deliver"><b>Deliver</b></Link>
+                            <Link
+                                className="float-right btn btn-primary"
+                                to={{
+                                    pathname: "/track",
+                                    state: {
+                                        order: order,
+                                    }
+                                }}
+                                ><b>Deliver</b></Link>
 
                             <div className="clearfix"></div>
                             <br />
@@ -118,12 +134,105 @@ class Orders extends React.Component {
     }
 }
 
-function Deliver() {
-  return (
-    <div>
-      <h2>Deliver</h2>
-    </div>
-  );
+class TrackOrder extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            order: this.props.location.state.order,
+            take_time: null,
+            delivering_time: null,
+            delivered_time: null,
+            stage: 0,
+        };
+    }
+
+    displayTime(time) {
+        if (time == null) {
+            return 'Waiting...';
+        } else {
+            return hourMinConverter(time);
+        }
+    }
+
+    stage(index) {
+        if (index < this.state.stage) {
+            return 'is-done';
+        } else if (index === this.state.stage) {
+            return 'current';
+        } else {
+            return '';
+        }
+    }
+
+    checkStage(element, id) {
+        element.checked = true;
+        this.setState({
+            stage: id,
+        });
+        switch (id) {
+            case 1:
+            this.setState({
+                take_time: parseInt(new Date().getTime() / 1000)
+            }); break;
+            case 2:
+            this.setState({
+                delivering_time: parseInt(new Date().getTime() / 1000)
+            }); break;
+            case 3:
+            this.setState({
+                delivered_time: parseInt(new Date().getTime() / 1000)
+            });
+            $.ajax({
+                url: '/api/orders/' + this.state.order.id,
+                contentType: "application/json",
+                method: 'PUT',
+                data: JSON.stringify({status: 3})
+            }).done(function(msg) {console.log(msg)});
+            break;
+        }
+        console.log('change time');
+    }
+
+    render() {
+        return (
+            <div>
+                <Header title={"Tracking order " + this.state.order.id} />
+
+                <div className="timeline-wrapper">
+                    <ul className="StepProgress">
+                        <li className={"StepProgress-item " + this.stage(0)}>
+                            <div className="step_time">{this.displayTime(this.state.order.order_time)}</div>
+                            <div className="bold">Order Confirmed</div>
+                        </li>
+                        <li className={"StepProgress-item " + this.stage(1)}>
+                            <div className="step_time">{this.displayTime(this.state.take_time)}</div>
+                            <label className="checkboxWrap" htmlFor="checkTaken">
+                                <input className="checkbox" type="checkbox" id="checkTaken" onChange={() => this.checkStage(this, 1)}></input>
+                            </label>
+                            <div className="bold">Food Taken from Store</div>
+                            <div>{this.state.order.store_address}</div>
+                        </li>
+                        <li className={"StepProgress-item " + this.stage(2)}>
+                            <label className="checkboxWrap" htmlFor="checkDelivering">
+                                <input className="checkbox" type="checkbox" id="checkDelivering" onChange={() => this.checkStage(this, 2)}></input>
+                            </label>
+                            <div className="step_time">{this.displayTime(this.state.delivering_time)}</div>
+                            <div className="bold">Delivering</div>
+                        </li>
+                        <li className={"StepProgress-item " + this.stage(3)}>
+                            <label className="checkboxWrap" htmlFor="checkDelivered">
+                                <input className="checkbox" type="checkbox" id="checkDelivered" onChange={() => this.checkStage(this, 3)}></input>
+                            </label>
+                            <div className="step_time">{this.displayTime(this.state.delivered_time)}</div>
+                            <div className="bold">Delivered</div>
+                            <div>{this.state.order.destination}</div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        );
+    }
 }
 
 function Topics() {
@@ -136,11 +245,13 @@ function Topics() {
 export default class App extends React.Component {
     render () {
         return (
-            <Router>
-                <Route exact path="/" component={Orders} />
-                <Route path="/deliver" component={Deliver} />
-                <Route path="/topics" component={Topics} />
-            </Router>
+            <div>
+                <Router>
+                    <Route exact path="/" component={Orders} />
+                    <Route path="/track" component={TrackOrder} />
+                    <Route path="/topics" component={Topics} />
+                </Router>
+            </div>
         )
     }
 }
