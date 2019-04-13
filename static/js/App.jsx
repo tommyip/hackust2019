@@ -79,7 +79,7 @@ export default class App extends React.Component {
         for (const order of this.state.orders) {
             orders.push(
                 <div key={order.id}>
-                    <div className="col-lg-12">
+                    <div className="col-lg-12 order-box">
                         <div className="order-time">{timeConverter(order.order_time)}</div>
                         <div className="deliver-card bg-light">
                             <h3 className="w-50 float-left">Order {order.id}</h3>

@@ -129,3 +129,11 @@
 .StepProgress strong {
     display: block;
 }
+
+.adp-directions, .adp-placemark, #panel{
+  display:none;
+}
+
+.order-box{
+  padding:20px;
+}
