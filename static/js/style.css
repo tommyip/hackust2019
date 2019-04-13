@@ -50,6 +50,32 @@
     font-weight: bold;
 }
 
+#home {
+    float: left;
+}
+
+#profile {
+    float: right;
+}
+
+#home, #profile {
+    font-size: 1.4em;
+    padding: 0.6em;
+}
+
+.title {
+    font-size: 2em;
+}
+
+.link,
+.title {
+    display: inline;
+}
+
+a.link {
+    color: rgb(70, 70, 70);
+}
+
 .step_date {
     position: absolute;
     left: -110px;
@@ -207,19 +233,17 @@
 .prof_card{
   background-color: #f6f6f6;
   border:1px solid #f6f6f6;
-  border-radius: 10px;
-  margin-top:-10px;
-  padding-bottom: 30px;
+  border-radius: 20px;
+  margin-top:-130px;
+  padding: 1.5em;
 }
 
 .prof_background{
   background-image: url("https://images.askmen.com/1080x540/2016/01/25-021526-facebook_profile_picture_affects_chances_of_getting_hired.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
   height:400px;
   width:100%;
-}
-
-.prof_detail{
-  padding:0px 30px;
 }
 
 .margin-btm-0{

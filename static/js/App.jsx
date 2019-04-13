@@ -74,7 +74,9 @@ function Header(props) {
     return (
         <div>
             <div className="header">
-                <h2>{props.title}</h2>
+                <Link id="home" className="link" to='/'><i className="fas fa-home"></i></Link>
+                <span className="title">{props.title}</span>
+                <Link id="profile" className="link" to="/profile"><i className="fas fa-id-badge"></i></Link>
             </div>
             <div className="header-pushdown"></div>
         </div>
@@ -116,7 +118,7 @@ class Orders extends React.Component {
             if (order.order_status === 3) continue;
             orders.push(
                 <div key={order.id}>
-                    <div className="col-lg-12 order-box">
+                    <div className="col-lg-12">
                         <div className="order-time">{timeConverter(order.order_time)}</div>
                         <div className="deliver-card bg-light">
                             <h3 className="w-50 float-left">Order {order.id}</h3>
@@ -260,13 +262,46 @@ class TrackOrder extends React.Component {
     }
 }
 
-function Topics() {
-  return (
-    <div>
-    <h2>Topics</h2>
-    </div>
-  );
+class Profile extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        }
+    }
+
+    render() {
+        return (
+            <div>
+            <Header title="Rider profile" />
+            <div className="margin-auto">
+                <div className="prof_background">
+
+                </div>
+
+                <div className="prof_card">
+                    <h2>Jason Chan</h2>
+                    <button className="inline-btn float-right btn btn-primary">Edit</button>
+                    <p className=" prof_date margin-btm-0">joined 2 months ago</p>
+                    <p >Preferred location: Tseung Kwan O</p>
+
+                    <h3>Completed orders</h3>
+                    <div className="order-time">6:40 14 April 2019</div>
+                    <div className="deliver-card bg-light">
+                        <h3 className="w-50 float-left">Order 14538</h3>
+
+                        <div className="clearfix"></div>
+                        <br />
+                        <p><i className="fas fa-store"></i>&nbsp;&nbsp; <b>KFC Hau Tak</b> Shop E165A, 1/F, East Wing, TKO Gateway, Hau Tak Estate, Tseung Kwan O</p>
+                        <p>&nbsp;<i className="fas fa-map-marker-alt"></i>&nbsp;&nbsp;&nbsp; China Gardens, G/F, Academic Building, Hong Kong University of Science and Technology, Clear Water Bay</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        );
+    }
 }
+
+
 export default class App extends React.Component {
     render () {
         return (
@@ -274,7 +309,7 @@ export default class App extends React.Component {
                 <Router history={history}>
                     <Route exact path="/" component={Orders} />
                     <Route path="/track" component={TrackOrder} />
-                    <Route path="/topics" component={Topics} />
+                    <Route path="/profile" component={Profile} />
                 </Router>
             </div>
         )
