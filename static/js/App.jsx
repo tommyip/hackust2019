@@ -1,7 +1,6 @@
 // App.jsx
 import React from "react";
 import './style.css';
-import Test from "./test";
 import { compose, withProps, lifecycle } from "recompose";
 import { withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer } from "react-google-maps";
 import googleMapsAPI from "./../ApiKeys"
@@ -20,8 +19,8 @@ const MapWithADirectionsRenderer = compose(
       const DirectionsService = new google.maps.DirectionsService();
 
       DirectionsService.route({
-        origin: new google.maps.LatLng(22.3364, 114.2655),
-        destination: new google.maps.LatLng(22.2980, 114.1720),
+        origin: new google.maps.LatLng(...this.props.store_latlng),
+        destination: new google.maps.LatLng(...this.props.destination_latlng),
         travelMode: google.maps.TravelMode.DRIVING,
       }, (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
@@ -37,8 +36,8 @@ const MapWithADirectionsRenderer = compose(
   })
 )(props =>
   <GoogleMap
-    defaultZoom={7}
-    defaultCenter={new google.maps.LatLng(41.8507300, -87.6512600)}
+    defaultZoom={8}
+    defaultCenter={new google.maps.LatLng(...props.store_latlng)}
   >
     {props.directions && <DirectionsRenderer directions={props.directions} options={{draggable:true}} panel={ document.getElementById('panel') } />}
     <div id="panel"></div>
@@ -89,7 +88,7 @@ export default class App extends React.Component {
                             <p>Pick up from {order.store}</p>
                             <p>Address: {order.store_address}</p>
                             <p>Destination: {order.destination}</p>
-                            <MapWithADirectionsRenderer />
+                            <MapWithADirectionsRenderer store_latlng={order.store_latlng} destination_latlng={order.destination_latlng} />
                         </div>
                     </div>
                     <br/>
