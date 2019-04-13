@@ -156,10 +156,10 @@ class Orders extends React.Component {
 
                         <div className="clearfix"></div>
                         <br />
-                        <p><i className="fas fa-store"></i>&nbsp;&nbsp; <b>Pizza Hut</b> Tseung Kwan O, 2071-72, Metro City Plaza Phase II, 8 Yan King Rd</p>
+                        <p><i className="fas fa-store"></i>&nbsp;&nbsp; <b>Pizza Hut</b> Po Lam Estate Block 6 Po Kan House, 18, Po Lam Rd N, Yau Yue Wan</p>
                         <p>&nbsp;<i className="fas fa-map-marker-alt"></i>&nbsp;&nbsp;&nbsp; Flat C, Floor 19, The Wings II Tower 1, Tong Chun St, Tseung Kwan O <i>(order 14541)</i></p>
                         <p>&nbsp;<i className="fas fa-map-marker-alt"></i>&nbsp;&nbsp;&nbsp; Flat A, Floor 4, The Wings II Tower 1, Tong Chun St, Tseung Kwan O <i>(order 14558)</i></p>
-                        <MapWithADirectionsRenderer store_latlng={[22.3243677, 114.2549438]} destination_latlng={[22.3058798, 114.2594711]} />
+                        <MapWithADirectionsRenderer store_latlng={[22.3236806, 114.2532648]} destination_latlng={[22.3058798,114.2594711]} />
                     </div>
                 </div>
             </div>
@@ -253,25 +253,25 @@ class TrackOrder extends React.Component {
                         </li>
                         <li className={"StepProgress-item " + this.stage(1)}>
                             <div className="step_time">{this.displayTime(this.state.take_time)}</div>
+                            <div className="bold stage">Food Taken from Store</div>&nbsp;&nbsp;
                             <label className="checkboxWrap" htmlFor="checkTaken">
                                 <input className="checkbox" type="checkbox" id="checkTaken" onChange={() => this.checkStage(this, 1)}></input>
                             </label>
-                            <div className="bold">Food Taken from Store</div>
                             <div>{this.state.order.store_address}</div>
                         </li>
                         <li className={"StepProgress-item " + this.stage(2)}>
+                            <div className="step_time">{this.displayTime(this.state.delivering_time)}</div>
+                            <div className="bold stage">Delivering</div>&nbsp;&nbsp;
                             <label className="checkboxWrap" htmlFor="checkDelivering">
                                 <input className="checkbox" type="checkbox" id="checkDelivering" onChange={() => this.checkStage(this, 2)}></input>
                             </label>
-                            <div className="step_time">{this.displayTime(this.state.delivering_time)}</div>
-                            <div className="bold">Delivering</div>
                         </li>
                         <li className={"StepProgress-item " + this.stage(3)}>
+                            <div className="step_time">{this.displayTime(this.state.delivered_time)}</div>
+                            <div className="bold stage">Delivered</div>&nbsp;&nbsp;
                             <label className="checkboxWrap" htmlFor="checkDelivered">
                                 <input className="checkbox" type="checkbox" id="checkDelivered" onChange={() => this.checkStage(this, 3)}></input>
                             </label>
-                            <div className="step_time">{this.displayTime(this.state.delivered_time)}</div>
-                            <div className="bold">Delivered</div>
                             <div>{this.state.order.destination}</div>
                         </li>
                     </ul>
@@ -301,6 +301,8 @@ class Profile extends React.Component {
 
                 <div className="prof_card">
                     <h2>Jason Chan</h2>
+                    <div><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> <span className="grey"><i>based on 45 deliveries made</i></span></div>
+                    <br />
                     <button className="inline-btn float-right btn btn-primary">Edit</button>
                     <p className=" prof_date margin-btm-0">joined 2 months ago</p>
                     <p >Preferred location: Tseung Kwan O</p>

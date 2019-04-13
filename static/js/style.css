@@ -36,10 +36,14 @@
     text-align: center;
 }
 
+.bg-light {
+    background-color: rgb(238, 238, 238)!important;
+}
+
 .order-time {
     padding-top: 1em;
     padding-bottom: 0.5em;
-    color: rgb(83, 83, 83);
+    color: rgb(61, 61, 61);
 }
 
 .deliver-btn {
@@ -91,6 +95,15 @@ a.link {
 
 .delivery-done {
     margin: auto;
+}
+
+.grey {
+    color: rgb(77, 77, 77);
+    font-size: 0.8em;
+}
+
+.stage {
+    display: inline-block;
 }
 
 .step_time {
