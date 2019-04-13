@@ -85,6 +85,11 @@ class Orders:
         })
         return new_id
 
+    def update_order_status(self, _id, new_status):
+        for order in self.lst:
+            if order['id'] == _id:
+                order['order_status'] = OrderStatus(new_status)
+
     def json(self):
         return jsonify(self.lst)
 
@@ -107,7 +112,13 @@ orders_db.add_new_order(
     Region.sai_kung,
     'Test user B'
 )
-
+orders_db.add_new_order(
+    'KFC',
+    'Shop A, G/F & 1/F, 2-4 Cameron Road, Tsim Sha Tsui',
+    '60 Chung Hau St, Ho Man Tin',
+    Region.wan_chai,
+    'Test user C'
+)
 
 @app.route('/api/orders', methods=['GET', 'POST'])
 def orders():
@@ -124,9 +135,16 @@ def orders_narrow_region(region_id):
     return jsonify(list(filter(lambda order: order['region'] == region_id, orders_db.lst)))
 
 
-@app.route('/api/orders/<int:order_id>')
+@app.route('/api/orders/<int:order_id>', methods=['GET', 'PUT'])
 def orders_narrow_id(order_id):
-    return jsonify(list(filter(lambda order: order['id'] == order_id, orders_db.lst)))
+    if request.method == 'GET':
+        for order in orders_db.lst:
+            if order['id'] == order_id:
+                return jsonify(order)
+    elif request.method == 'PUT':
+        new_status = request.get_json()['status']
+        orders_db.update_order_status(order_id, new_status)
+        return jsonify(True)
 
 
 @app.route('/api/riders', methods=['GET'])
