@@ -1,5 +1,5 @@
 {
-  "name": "simple-flask-react-template",
+  "name": "hackust2019",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -23,6 +23,8 @@
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
+    "style-loader": "^0.23.1",
+    "css-loader": "^2.1.1",
     "webpack": "^4.30.0"
   },
   "babel": {
