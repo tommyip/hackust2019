@@ -1,5 +1,6 @@
 // App.jsx
 import React from "react";
+import './style.css';
 import Test from "./test";
 import { compose, withProps, lifecycle } from "recompose";
 import { withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer } from "react-google-maps";
@@ -45,15 +46,24 @@ const MapWithADirectionsRenderer = compose(
 );
 
 export default class App extends React.Component {
+    render () {
+        return (
+        <div>
+            <div className="col-lg-12">
+                <div className="deliver-card bg-light">
+                    <h3 className="w-50 float-left">Order 12345-N</h3>
+                    <button className="float-right btn-white deliver-btn">Deliver</button>
+                    <div className="clearfix"></div>
 
-
-  render () {
-    return (
-      <div>
-        <Test/>
-        <MapWithADirectionsRenderer />
-
-      </div>
-    )
-  }
+                    <p>Tseung Kwan O to 12/F Happy Valley</p>
+                    <MapWithADirectionsRenderer />
+                </div>
+            </div>
+            <br/>
+            <div className="col-lg-8">
+                <p>16:04 April 13, 2019</p>
+            </div>
+        </div>
+        );
+    }
 }
