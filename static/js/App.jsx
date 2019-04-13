@@ -6,6 +6,7 @@ export default class App extends React.Component {
 
 
   render () {
+
     return <div class="col-lg-12">
       <div class="deliver-card bg-light">
 
@@ -22,5 +23,6 @@ export default class App extends React.Component {
     <div class="col-lg-8">
     <p>16:04 April 13, 2019</p>
     </div>;
+
   }
 }
