@@ -49,11 +49,31 @@
   .deliver-card h3{
     font-size: 50px;
   }
+
+  h2{
+    font-size:50px;
+  }
+
   p,button{
     font-size:30px;
   }
   .deliver-btn{
     padding:20px 30px;
+  }
+
+  .prof_date{
+    color:darkgrey;
+    font-size:25px;
+  }
+
+  .prof_card button{
+    float:right;
+    border:0;
+    margin-top
+  }
+  h3{
+     font-size:40px;
+     padding-left:20px;
   }
 }
 
@@ -136,4 +156,38 @@
 
 .order-box{
   padding:20px;
+}
+
+.margin-auto{
+  margin: 0 auto;
+}
+
+.prof_card{
+  background-color: #f6f6f6;
+  border:1px solid #f6f6f6;
+  border-radius: 10px;
+  margin-top:-10px;
+  padding-bottom: 30px;
+}
+
+.prof_background{
+  background-image: url("https://images.askmen.com/1080x540/2016/01/25-021526-facebook_profile_picture_affects_chances_of_getting_hired.jpg");
+  height:400px;
+  width:100%;
+}
+
+.prof_detail{
+  padding:0px 30px;
+}
+
+.margin-btm-0{
+  margin-bottom:0;
+}
+
+.order_card{
+  background-color:white;
+  border-radius:10px;
+  margin:0 20px;
+  padding:20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
