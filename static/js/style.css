@@ -1,0 +1,91 @@
+.btn-white{
+  background-color:white;
+  border:0;
+}
+
+.btn-white:hover{
+  background-color:black;
+  color:white;
+}
+
+.deliver-btn{
+  padding: 5px 15px;
+}
+
+.deliver-card{
+  padding: 20px;
+}
+
+.bold{font-weight:bold;}
+.step_date{position:absolute; left:-110px;}
+.step_time{position: absolute; left:-108px;top:15px;}
+.timeline-wrapper {
+padding-left:80px;
+min-width: 400px;
+font-family: 'Helvetica';
+font-size: 14px;
+/*border: 1px solid #CCC;*/
+}
+.StepProgress {
+position: relative;
+padding-left: 42px;
+list-style: none;
+}
+.StepProgress::before {
+display: inline-block;
+content: '';
+position: absolute;
+top: 0;
+left: 15px;
+width: 10px;
+height: 95%;
+border-left: 2px solid #CCC;
+}
+.StepProgress-item {
+position: relative;
+counter-increment: list;
+}
+.StepProgress-item:not(:last-child) {
+padding-bottom: 50px;
+}
+.StepProgress-item::before {
+display: inline-block;
+content: '';
+position: absolute;
+left: -27px;
+height: 100%;
+width: 10px;
+}
+.StepProgress-item::after {
+content: '';
+display: inline-block;
+position: absolute;
+top: 0;
+left: -32px;
+width: 12px;
+height: 12px;
+border: 2px solid #CCC;
+border-radius: 50%;
+background-color: #FFF;
+}
+
+
+
+.StepProgress-item.current::after{
+  border: 2px solid blue;
+}
+.StepProgress-item.is-done::before {
+border-left: 2px solid blue;
+}
+.StepProgress-item.is-done::after {
+/*content: "?";*/
+font-size: 10px;
+color: #FFF;
+text-align: center;
+border: 2px solid blue;
+background-color: white;
+}
+
+.StepProgress strong {
+display: block;
+}
