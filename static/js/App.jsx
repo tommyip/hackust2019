@@ -70,7 +70,7 @@ function Header(props) {
     );
 }
 
-export default class App extends React.Component {
+class Orders extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -89,19 +89,19 @@ export default class App extends React.Component {
 
     render () {
         const orders = [];
-        for (const order of self.state.orders) {
+        for (const order of this.state.orders) {
             orders.push(
                 <div key={order.id}>
                     <div className="col-lg-12 order-box">
                         <div className="order-time">{timeConverter(order.order_time)}</div>
                         <div className="deliver-card bg-light">
                             <h3 className="w-50 float-left">Order {order.id}</h3>
-                            <button className="float-right btn-white deliver-btn"><Link to="/deliver">Deliver</Link></button>
+                            <Link className="float-right btn btn-primary" to="/deliver"><b>Deliver</b></Link>
 
                             <div className="clearfix"></div>
                             <br />
-                            <p><i class="fas fa-store"></i>&nbsp;&nbsp; <b>{order.store}</b> {order.store_address}</p>
-                            <p>&nbsp;<i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;&nbsp; {order.destination}</p>
+                            <p><i className="fas fa-store"></i>&nbsp;&nbsp; <b>{order.store}</b> {order.store_address}</p>
+                            <p>&nbsp;<i className="fas fa-map-marker-alt"></i>&nbsp;&nbsp;&nbsp; {order.destination}</p>
                             <MapWithADirectionsRenderer store_latlng={order.store_latlng} destination_latlng={order.destination_latlng} />
                         </div>
                     </div>
@@ -137,24 +137,9 @@ export default class App extends React.Component {
     render () {
         return (
             <Router>
-                <div>
-                    <ul>
-                        <li>
-                            <Link to="/">Orders</Link>
-                        </li>
-                        <li>
-                            <Link to="/deliver">Deliver</Link>
-                        </li>
-                        <li>
-                            <Link to="/topics">Topics</Link>
-                        </li>
-                    </ul>
-
-                    <Route exact path="/" component={Orders} />
-                    <Route path="/deliver" component={Deliver} />
-                    <Route path="/topics" component={Topics} />
-                    <hr />
-                </div>
+                <Route exact path="/" component={Orders} />
+                <Route path="/deliver" component={Deliver} />
+                <Route path="/topics" component={Topics} />
             </Router>
         )
     }
