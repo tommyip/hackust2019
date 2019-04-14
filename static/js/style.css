@@ -12,6 +12,13 @@
     color: white;
 }
 
+.check {
+    padding-right: 1em;
+    float: right;
+    background: white;
+    border-radius: 5px;
+}
+
 .deliver-card {
     border-radius: 20px;
     padding: 2em;
@@ -113,6 +120,18 @@ a.link {
 
 .checkboxWrap {
     display: inline-block;
+}
+
+input[type='checkbox'] {
+    width: 30px;
+    height: 30px;
+    background: white;
+    border-radius: 5px;
+    border: 1px solid #555;
+}
+
+input[type='checkbox']:checked {
+    background: #abc;
 }
 
 .timeline-wrapper {

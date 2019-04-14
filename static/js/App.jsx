@@ -254,7 +254,7 @@ class TrackOrder extends React.Component {
                         <li className={"StepProgress-item " + this.stage(1)}>
                             <div className="step_time">{this.displayTime(this.state.take_time)}</div>
                             <div className="bold stage">Food Taken from Store</div>&nbsp;&nbsp;
-                            <label className="checkboxWrap" htmlFor="checkTaken">
+                            <label className="checkboxWrap check" htmlFor="checkTaken">
                                 <input className="checkbox" type="checkbox" id="checkTaken" onChange={() => this.checkStage(this, 1)}></input>
                             </label>
                             <div>{this.state.order.store_address}</div>
@@ -262,14 +262,14 @@ class TrackOrder extends React.Component {
                         <li className={"StepProgress-item " + this.stage(2)}>
                             <div className="step_time">{this.displayTime(this.state.delivering_time)}</div>
                             <div className="bold stage">Delivering</div>&nbsp;&nbsp;
-                            <label className="checkboxWrap" htmlFor="checkDelivering">
+                            <label className="checkboxWrap check" htmlFor="checkDelivering">
                                 <input className="checkbox" type="checkbox" id="checkDelivering" onChange={() => this.checkStage(this, 2)}></input>
                             </label>
                         </li>
                         <li className={"StepProgress-item " + this.stage(3)}>
                             <div className="step_time">{this.displayTime(this.state.delivered_time)}</div>
                             <div className="bold stage">Delivered</div>&nbsp;&nbsp;
-                            <label className="checkboxWrap" htmlFor="checkDelivered">
+                            <label className="checkboxWrap check" htmlFor="checkDelivered">
                                 <input className="checkbox" type="checkbox" id="checkDelivered" onChange={() => this.checkStage(this, 3)}></input>
                             </label>
                             <div>{this.state.order.destination}</div>
@@ -303,7 +303,7 @@ class Profile extends React.Component {
                     <h2>Jason Chan</h2>
                     <div><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> <span className="grey"><i>based on 45 deliveries made</i></span></div>
                     <br />
-                    <button className="inline-btn float-right btn btn-primary">Edit</button>
+                    <button className="inline-btn check btn btn-primary">Edit</button>
                     <p className=" prof_date margin-btm-0">joined 2 months ago</p>
                     <p >Preferred location: Tseung Kwan O</p>
 
