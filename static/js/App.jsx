@@ -303,7 +303,7 @@ class Profile extends React.Component {
                     <h2>Jason Chan</h2>
                     <div><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i> <span className="grey"><i>based on 45 deliveries made</i></span></div>
                     <br />
-                    <button className="inline-btn check btn btn-primary">Edit</button>
+                    <button className="inline-btn btn btn-primary">Edit</button>
                     <p className=" prof_date margin-btm-0">joined 2 months ago</p>
                     <p >Preferred location: Tseung Kwan O</p>
 
